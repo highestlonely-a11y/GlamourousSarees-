@@ -301,7 +301,7 @@
         </div>
     </div>
 
-    <!-- Footer -->
+     <!-- Footer -->
     <footer class="bg-brand-dark text-white pt-16 pb-12 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
             <div class="space-y-4">
@@ -321,4 +321,284 @@
                     <li><a href="#home" class="hover:text-brand-rose transition-colors">Home</a></li>
                     <li><a href="#sarees" class="hover:text-brand-rose transition-colors">Sarees Collection</a></li>
                     <li><a href="#about" class="hover:text-brand-rose transition-colors">About Us</a></li>
-                    <li><a href="#contact" class="hover:text-brand-rose transition-colors">Contact<
+                    <li><a href="#contact" class="hover:text-brand-rose transition-colors">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="font-serif text-lg font-bold">Customer Care</h4>
+                <p class="text-sm text-gray-400 font-light">
+                    Dedicated to bringing you authentic elegance. For orders or inquiries, contact us directly via email or phone.
+                </p>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-500">
+            <p>&copy; 2026 The Local Shop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Application Script -->
+    <script>
+        const productsData = [
+            {
+                id: 1,
+                name: "Glamourous Sarees",
+                price: 670,
+                priceFormatted: "₹670",
+                image: "https://i.ibb.co/PZZrW8XY/IMG-20260630-WA0066.jpg",
+                hasPrice: true,
+                hasName: true
+            },
+            {
+                id: 2,
+                name: "Product name not provided",
+                price: null,
+                priceFormatted: "Not provided",
+                image: "https://i.ibb.co/jvSZYSPY/IMG-20260630-WA0024.jpg",
+                hasPrice: false,
+                hasName: false
+            },
+            {
+                id: 3,
+                name: "Product name not provided",
+                price: null,
+                priceFormatted: "Not provided",
+                image: "https://i.ibb.co/PZZrW8XY/IMG-20260630-WA0066.jpg",
+                hasPrice: false,
+                hasName: false
+            }
+        ];
+
+        let cart = [];
+
+        const productCarousel = document.getElementById('product-carousel');
+        const carouselDots = document.getElementById('carousel-dots');
+        const cartBtn = document.getElementById('cart-btn');
+        const closeCartBtn = document.getElementById('close-cart');
+        const cartDrawer = document.getElementById('cart-drawer');
+        const cartOverlay = document.getElementById('cart-overlay');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const cartFooter = document.getElementById('cart-footer');
+        const cartCount = document.getElementById('cart-count');
+        const cartSubtotal = document.getElementById('cart-subtotal');
+        const cartTotal = document.getElementById('cart-total');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const checkoutModal = document.getElementById('checkout-modal');
+        const closeCheckoutBtn = document.getElementById('close-checkout');
+        const checkoutSummaryList = document.getElementById('checkout-summary-list');
+        const checkoutTotalAmount = document.getElementById('checkout-total-amount');
+        const orderForm = document.getElementById('order-form');
+        const successModal = document.getElementById('success-modal');
+        const closeSuccessBtn = document.getElementById('close-success');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function renderProducts() {
+            productCarousel.innerHTML = '';
+            carouselDots.innerHTML = '';
+
+            productsData.forEach((product, index) => {
+                const card = document.createElement('div');
+                card.className = "flex-none w-full sm:w-[320px] bg-white rounded-3xl shadow-md border border-gray-100 overflow-hidden snap-start flex flex-col transition-all duration-300 hover:shadow-xl group";
+                
+                const isAvailable = product.hasPrice && product.hasName;
+
+                card.innerHTML = `
+                    <div class="relative overflow-hidden aspect-[3/4] bg-gray-100">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/400x500/fbe8eb/be185d?text=Saree+Image'">
+                        ${!isAvailable ? '<span class="absolute top-3 right-3 bg-gray-900/80 text-white text-xs font-medium px-3 py-1 rounded-full backdrop-blur-sm">Details Coming Soon</span>' : ''}
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-serif text-lg font-bold text-gray-900 mb-1 line-clamp-1 ${!product.hasName ? 'italic text-gray-400 font-normal' : ''}">${product.name}</h3>
+                            <p class="text-brand-rose font-bold text-lg ${!product.hasPrice ? 'text-gray-400 italic font-normal text-sm' : ''}">${product.priceFormatted}</p>
+                        </div>
+                        <div>
+                            ${isAvailable 
+                                ? `<button onclick="addToCart(${product.id})" class="w-full py-3 bg-brand-rose hover:bg-pink-700 text-white font-medium rounded-xl shadow-sm transition-all flex items-center justify-center space-x-2">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                    <span>Add to Cart</span>
+                                   </button>`
+                                : `<button disabled class="w-full py-3 bg-gray-100 text-gray-400 font-medium rounded-xl cursor-not-allowed">
+                                    Coming Soon
+                                   </button>`
+                            }
+                        </div>
+                    </div>
+                `;
+                productCarousel.appendChild(card);
+
+                const dot = document.createElement('button');
+                dot.className = `w-2.5 h-2.5 rounded-full transition-all ${index === 0 ? 'bg-brand-rose w-6' : 'bg-gray-300'}`;
+                dot.setAttribute('aria-label', `Slide ${index + 1}`);
+                dot.onclick = () => {
+                    const cardWidth = productCarousel.querySelector(':first-child').offsetWidth + 24;
+                    productCarousel.scrollTo({ left: cardWidth * index, behavior: 'smooth' });
+                };
+                carouselDots.appendChild(dot);
+            });
+        }
+
+        document.getElementById('prev-slide').onclick = () => {
+            const cardWidth = productCarousel.querySelector(':first-child').offsetWidth + 24;
+            productCarousel.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+        };
+        document.getElementById('next-slide').onclick = () => {
+            const cardWidth = productCarousel.querySelector(':first-child').offsetWidth + 24;
+            productCarousel.scrollBy({ left: cardWidth, behavior: 'smooth' });
+        };
+
+        function addToCart(productId) {
+            const product = productsData.find(p => p.id === productId);
+            if (!product || !product.hasPrice) return;
+
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            updateCartUI();
+            openCart();
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cart.find(i => i.id === productId);
+            if (!item) return;
+            item.quantity += change;
+            if (item.quantity <= 0) {
+                cart = cart.filter(i => i.id !== productId);
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(i => i.id !== productId);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalCount;
+
+            const itemEls = cartItemsContainer.querySelectorAll('.cart-item-card');
+            itemEls.forEach(el => el.remove());
+
+            if (cart.length === 0) {
+                emptyCartMessage.classList.remove('hidden');
+                cartFooter.classList.add('hidden');
+            } else {
+                emptyCartMessage.classList.add('hidden');
+                cartFooter.classList.remove('hidden');
+
+                let subtotal = 0;
+                cart.forEach(item => {
+                    subtotal += item.price * item.quantity;
+                    const itemEl = document.createElement('div');
+                    itemEl.className = "cart-item-card flex items-center justify-between p-4 bg-gray-50 rounded-2xl border border-gray-100";
+                    itemEl.innerHTML = `
+                        <div class="flex items-center space-x-3">
+                            <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-xl">
+                            <div>
+                                <h4 class="font-medium text-gray-900 text-sm">${item.name}</h4>
+                                <p class="text-brand-rose font-bold text-sm">${item.priceFormatted}</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end space-y-2">
+                            <button onclick="removeFromCart(${item.id})" aria-label="Remove item" class="text-gray-400 hover:text-red-500 text-xs">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                            <div class="flex items-center space-x-2 bg-white px-2 py-1 rounded-lg border border-gray-200">
+                                <button onclick="updateQuantity(${item.id}, -1)" aria-label="Decrease quantity" class="text-gray-500 hover:text-gray-800 px-1 font-bold">-</button>
+                                <span class="text-xs font-bold text-gray-800">${item.quantity}</span>
+                                <button onclick="updateQuantity(${item.id}, 1)" aria-label="Increase quantity" class="text-gray-500 hover:text-gray-800 px-1 font-bold">+</button>
+                            </div>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(itemEl);
+                });
+
+                cartSubtotal.textContent = `₹${subtotal}`;
+                cartTotal.textContent = `₹${subtotal}`;
+            }
+        }
+
+        function openCart() {
+            cartDrawer.classList.remove('translate-x-full');
+            cartOverlay.classList.remove('hidden');
+        }
+
+        function closeCart() {
+            cartDrawer.classList.add('translate-x-full');
+            cartOverlay.classList.add('hidden');
+        }
+
+        cartBtn.onclick = openCart;
+        closeCartBtn.onclick = closeCart;
+        cartOverlay.onclick = closeCart;
+
+        checkoutBtn.onclick = () => {
+            closeCart();
+            checkoutSummaryList.innerHTML = '';
+            let total = 0;
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                const row = document.createElement('div');
+                row.className = "flex justify-between text-gray-700";
+                row.innerHTML = `<span>${item.name} (x${item.quantity})</span> <span class="font-medium">₹${itemTotal}</span>`;
+                checkoutSummaryList.appendChild(row);
+            });
+            checkoutTotalAmount.textContent = `₹${total}`;
+            checkoutModal.classList.remove('hidden');
+        };
+
+        closeCheckoutBtn.onclick = () => {
+            checkoutModal.classList.add('hidden');
+        };
+
+        orderForm.onsubmit = (e) => {
+            e.preventDefault();
+            const name = document.getElementById('cust-name').value;
+            const mobile = document.getElementById('cust-mobile').value;
+            const address = document.getElementById('cust-address').value;
+            const note = document.getElementById('cust-note').value;
+
+            const orderDetails = {
+                customerName: name,
+                mobileNumber: mobile,
+                deliveryAddress: address,
+                orderNote: note,
+                items: cart,
+                totalAmount: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+            };
+
+            checkoutModal.classList.add('hidden');
+            successModal.classList.remove('hidden');
+            cart = [];
+            updateCartUI();
+            orderForm.reset();
+        };
+
+        closeSuccessBtn.onclick = () => {
+            successModal.classList.add('hidden');
+        };
+
+        mobileMenuBtn.onclick = () => {
+            mobileMenu.classList.toggle('hidden');
+        };
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.onclick = () => {
+                mobileMenu.classList.add('hidden');
+            };
+        });
+
+        window.onload = () => {
+            renderProducts();
+        };
+    </script>
+</body>
+</html>
