@@ -38,7 +38,6 @@
         }
     </script>
     <style>
-        /* Custom scrollbar and sleek animations */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -61,13 +60,11 @@
     <!-- Navigation Bar -->
     <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Brand Logo / Name -->
             <a href="#" class="flex flex-col">
                 <span class="font-serif text-2xl font-bold tracking-tight text-brand-dark">The Local Shop</span>
                 <span class="text-xs uppercase tracking-widest text-brand-rose font-medium">Glamourous Sarees</span>
             </a>
 
-            <!-- Desktop Navigation Links -->
             <nav class="hidden md:flex items-center space-x-8 font-medium text-sm">
                 <a href="#home" class="text-gray-700 hover:text-brand-rose transition-colors">Home</a>
                 <a href="#sarees" class="text-gray-700 hover:text-brand-rose transition-colors">Sarees</a>
@@ -75,22 +72,18 @@
                 <a href="#contact" class="text-gray-700 hover:text-brand-rose transition-colors">Contact</a>
             </nav>
 
-            <!-- Right Actions (Cart & Mobile Menu Toggle) -->
             <div class="flex items-center space-x-4">
-                <!-- Cart Button -->
                 <button id="cart-btn" aria-label="Shopping Cart" class="relative p-2.5 rounded-full bg-brand-50 hover:bg-brand-100 text-brand-dark transition-all focus:outline-none">
                     <i class="fa-solid fa-bag-shopping text-lg text-brand-rose"></i>
                     <span id="cart-count" class="absolute -top-1 -right-1 bg-brand-rose text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold shadow-sm">0</span>
                 </button>
 
-                <!-- Mobile Menu Button -->
                 <button id="mobile-menu-btn" aria-label="Toggle Menu" class="md:hidden p-2 rounded-lg text-gray-700 hover:text-brand-rose focus:outline-none">
                     <i class="fa-solid fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Navigation Menu Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-4 pt-3 pb-5 space-y-3 shadow-lg">
             <a href="#home" class="mobile-link block py-2 text-gray-700 font-medium hover:text-brand-rose">Home</a>
             <a href="#sarees" class="mobile-link block py-2 text-gray-700 font-medium hover:text-brand-rose">Sarees</a>
@@ -130,9 +123,7 @@
             <p class="text-gray-600 text-base sm:text-lg">Discover beautiful sarees for every occasion</p>
         </div>
 
-        <!-- Product Carousel Container -->
         <div class="relative">
-            <!-- Navigation Arrows for Desktop -->
             <button id="prev-slide" aria-label="Previous Slide" class="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white rounded-full shadow-md items-center justify-center text-gray-800 hover:text-brand-rose hover:shadow-lg transition-all">
                 <i class="fa-solid fa-chevron-left"></i>
             </button>
@@ -140,16 +131,12 @@
                 <i class="fa-solid fa-chevron-right"></i>
             </button>
 
-            <!-- Carousel Track -->
             <div id="product-carousel" class="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-6 pt-2 px-2 focus:outline-none">
-                <!-- Products will be injected dynamically from JavaScript data structure -->
+                <!-- Dynamic Products Injected via Script -->
             </div>
         </div>
 
-        <!-- Carousel Pagination Dots -->
-        <div id="carousel-dots" class="flex justify-center items-center space-x-2 mt-6">
-            <!-- Dots generated dynamically -->
-        </div>
+        <div id="carousel-dots" class="flex justify-center items-center space-x-2 mt-6"></div>
     </section>
 
     <!-- About Section -->
@@ -216,7 +203,6 @@
 
     <!-- Shopping Cart Drawer -->
     <div id="cart-drawer" class="fixed top-0 right-0 bottom-0 w-full max-w-md bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
-        <!-- Cart Header -->
         <div class="p-6 border-b border-gray-100 flex items-center justify-between">
             <div class="flex items-center space-x-2">
                 <i class="fa-solid fa-bag-shopping text-brand-rose text-xl"></i>
@@ -227,9 +213,7 @@
             </button>
         </div>
 
-        <!-- Cart Items Container -->
         <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
-            <!-- Empty state will show by default if cart is empty -->
             <div id="empty-cart-message" class="text-center py-16 space-y-4">
                 <div class="w-20 h-20 bg-brand-50 text-brand-rose rounded-full flex items-center justify-center mx-auto text-3xl">
                     <i class="fa-solid fa-basket-shopping"></i>
@@ -241,7 +225,6 @@
             </div>
         </div>
 
-        <!-- Cart Footer / Checkout Trigger -->
         <div id="cart-footer" class="p-6 border-t border-gray-100 bg-gray-50 space-y-4 hidden">
             <div class="space-y-2">
                 <div class="flex justify-between text-sm text-gray-600">
@@ -269,12 +252,9 @@
                 </button>
             </div>
             <div class="p-6 overflow-y-auto space-y-6">
-                <!-- Order Summary Summary Box -->
                 <div class="bg-brand-50 p-4 rounded-2xl border border-brand-100 space-y-3">
                     <h4 class="font-bold text-gray-900 text-sm uppercase tracking-wider">Order Summary</h4>
-                    <div id="checkout-summary-list" class="space-y-2 text-sm">
-                        <!-- Items populated via JS -->
-                    </div>
+                    <div id="checkout-summary-list" class="space-y-2 text-sm"></div>
                     <hr class="border-brand-200">
                     <div class="flex justify-between font-bold text-gray-900 text-base">
                         <span>Total Payable:</span>
@@ -282,7 +262,6 @@
                     </div>
                 </div>
 
-                <!-- Order Form -->
                 <form id="order-form" class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Customer Name *</label>
@@ -325,8 +304,21 @@
     <!-- Footer -->
     <footer class="bg-brand-dark text-white pt-16 pb-12 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
-            <!-- Brand Info -->
             <div class="space-y-4">
                 <span class="font-serif text-2xl font-bold tracking-tight text-white">The Local Shop</span>
                 <p class="text-sm text-gray-400 font-light">
-           
+                    Glamourous Sarees — Elegant Styles, Beautiful Prices
+                </p>
+                <div class="text-sm text-gray-300 space-y-1">
+                    <p><i class="fa-solid fa-envelope mr-2 text-brand-rose"></i> xyz@gmail.com</p>
+                    <p><i class="fa-solid fa-phone mr-2 text-brand-rose"></i> xyz</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="font-serif text-lg font-bold">Quick Navigation</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="#home" class="hover:text-brand-rose transition-colors">Home</a></li>
+                    <li><a href="#sarees" class="hover:text-brand-rose transition-colors">Sarees Collection</a></li>
+                    <li><a href="#about" class="hover:text-brand-rose transition-colors">About Us</a></li>
+                    <li><a href="#contact" class="hover:text-brand-rose transition-colors">Contact<
